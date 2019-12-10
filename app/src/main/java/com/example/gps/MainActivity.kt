@@ -21,8 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+        grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
@@ -49,14 +48,11 @@ class MainActivity : AppCompatActivity() {
         //melakukan cek permision
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        )
+                android.Manifest.permission.ACCESS_FINE_LOCATION))
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_CODE
-            )
+                REQUEST_CODE)
         else {
             buildLocationRequest()
             buildLocationCallback()
@@ -68,51 +64,36 @@ class MainActivity : AppCompatActivity() {
             btn_start_update.setOnClickListener(View.OnClickListener {
                 if (ActivityCompat.checkSelfPermission(
                         this@MainActivity,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                    != PackageManager.PERMISSION_GRANTED &&
+                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(
                         this@MainActivity,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    )
-                    != PackageManager.PERMISSION_GRANTED
-                ) {
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                {
 
                     ActivityCompat.requestPermissions(
                         this@MainActivity,
-                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                        REQUEST_CODE
-                    )
+                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
                     return@OnClickListener
                 }
 
-                fusedLocationProviderClient.requestLocationUpdates(
-                    locationRequest,
-                    locationCallback,
-                    Looper.myLooper()
-                )
+                fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback,
+                    Looper.myLooper())
 
                 //Merubah status tombol
                 btn_start_update.isEnabled = !btn_start_update.isEnabled
                 btn_stop_update.isEnabled = !btn_stop_update.isEnabled
             });
-            btn_start_update.setOnClickListener(View.OnClickListener {
+            btn_stop_update.setOnClickListener(View.OnClickListener {
                 if (ActivityCompat.checkSelfPermission(
                         this@MainActivity,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                    != PackageManager.PERMISSION_GRANTED &&
+                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(
                         this@MainActivity,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    )
-                    != PackageManager.PERMISSION_GRANTED
-                ) {
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                {
                     ActivityCompat.requestPermissions(
                         this,
-                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                        REQUEST_CODE
-                    )
+                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
                     return@OnClickListener
                 }
                 fusedLocationProviderClient.removeLocationUpdates(locationCallback)
@@ -129,7 +110,7 @@ class MainActivity : AppCompatActivity() {
 
             //CTRL+O
             override fun onLocationResult(p0: LocationResult?) {
-                var location = p0!!.locations.get(p0!!.locations.size - 1)
+                var location = p0!!.locations.get(p0!!.locations.size-1)
 
                 //get last location
                 text_location.text =
