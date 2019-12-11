@@ -69,15 +69,13 @@ class MainActivity : AppCompatActivity() {
                         this@MainActivity,
                         android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
                 {
-
                     ActivityCompat.requestPermissions(
                         this@MainActivity,
                         arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
                     return@OnClickListener
                 }
 
-                fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback,
-                    Looper.myLooper())
+                fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
 
                 //Merubah status tombol
                 btn_start_update.isEnabled = !btn_start_update.isEnabled
